@@ -1,0 +1,13 @@
+Row Number,Asset or Liability,Account Type,Account Name,Institution,Days Since Update,Account Currency,Account Balance,Base Currency,To Base Balance
+1,Asset,CASH,Joint BCB Chequing,Big Canadian Bank,0,CAD,"$9,234.84 ",CAD,"$9,234.84 "
+2,Asset,CASH,Joint BCB Savings,Big Canadian Bank,0,CAD,"$1,834.01 ",CAD,"$1,834.01 "
+3,Asset,CASH,Joint BCB USD Savings,Big Canadian Bank,0,USD,15706.63,CAD,"$21,937.45 "
+5,Asset,CASH,Joint OCB Chequing,Online Canadian Bank,3,CAD,"$25,083.12 ",CAD,"$25,083.12 "
+6,Asset,INVESTMENT,Personal BCB RRSP,Big Canadian Bank,5,CAD,"$238,487.82 ",CAD,"$238,487.82 "
+7,Asset,INVESTMENT,Personal BUSB Rollover IRA,Big US Bank,0,USD,104405.91,CAD,"$145,823.74 "
+8,Asset,INVESTMENT,Joint OCB Trading,Online Canadian Bank,3,CAD,"$206,619.93 ",CAD,"$206,619.93 "
+10,Asset,REAL ESTATE,House - 123 Anywhere Drive,,18,CAD,"$934,000.00 ",CAD,"$934,000.00 "
+11,Liability,CREDIT,Personal BUSB Credit Card,Big US Bank,0,USD,157.12,CAD,$219.45 
+12,Liability,CREDIT,Joint BCB HELOC,Big Canadian Bank,0,CAD,$0.00 ,CAD,$0.00 
+13,Liability,CREDIT,Personal OCB Credit Card,Online Canadian Bank,0,CAD,"$1,834.93 ",CAD,"$1,834.93 "
+14,Liability,LOAN,Joint BCB Mortgage,Big Canadian Bank,0,CAD,"$217,965.84 ",CAD,"$217,965.84 "

@@ -1,0 +1,15 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title>Lunch To Go Icon</title>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+  </defs>
+  <rect x="32" y="32" width="448" height="448" rx="96" fill="url(#bg)" />
+  <g fill="#ffffff" font-family="'Segoe UI', 'Inter', sans-serif" font-weight="700">
+    <text x="50%" y="58%" font-size="180" text-anchor="middle">LTG</text>
+  </g>
+  <circle cx="380" cy="140" r="42" fill="#facc15" opacity="0.8" />
+  <path d="M152 356h208c9.9 0 18-8.1 18-18v-12c0-34.2-27.8-62-62-62H196c-34.2 0-62 27.8-62 62v12c0 9.9 8.1 18 18 18z" fill="rgba(255,255,255,0.85)" />
+</svg>

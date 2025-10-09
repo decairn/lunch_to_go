@@ -1,0 +1,66 @@
+# Dependencies
+node_modules/
+app/node_modules/
+pnpm-debug.log*
+npm-debug.log*
+
+# Next.js build output
+app/.next/
+app/out/
+app/.turbo/
+app/.vercel/
+
+# Playwright artifacts
+app/playwright-report/
+app/test-results/
+
+# Coverage
+coverage/
+app/coverage/
+
+# Rust and Cargo
+target/
+src-tauri/target/
+src-tauri/.cargo/
+src-tauri/.tauri-build/
+Cargo.lock
+debug/
+release/
+deps/
+build/
+.fingerprint/
+.future-incompat-report.json
+
+# Tauri build output and configuration
+src-tauri/gen/
+src-tauri/tauri.conf.json.bak
+src-tauri/WiX/
+src-tauri/bundle/
+dist/
+*.dmg
+*.deb
+*.rpm
+*.msi
+*.exe
+*.AppImage
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.*
+*.local
+
+# Editor / OS
+.vscode/
+.idea/
+.claude/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Misc
+app/.eslintcache
