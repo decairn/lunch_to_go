@@ -2,16 +2,27 @@
 
 Lunch To Go is a Next.js + Tauri companion for Lunch Money subscribers. It delivers a sortable account overview, a polished settings surface, and a Windows desktop shell while sharing a single React codebase.
 
+## Agentic Coding Project Experiment
+
+Other than requirements `docs\Lunch_To_Go_Requirements.md`, demo data `app\public\demo_accounts_data.csv` and this section in `README.md` which were hand-crafted, this entire project is created using agentic AI tools. Human intervention and guideance were used to clarify and tweak a few things along the way but it's otherwise 100% machine created.
+
+Open AI Codex for spec, plan, tasks, coverage matrix, then a mix of Codex, Copilot and Claude for the implementation based on what credits were available for the month.
+
+This is the second attempt.  The first used Dart and Flutter, while that worked it was over engineered. This version put more bounds and focus on precise requirements, and changed technology stack to be a more popular one with the idea that AI would have an easier time of it creating the end product, and to flex the idea that the tech doesn't really matter as long as you meet the requirements success criteria.
+
 ## Contents
 
-- [Highlights](#highlights)
-- [Screenshots](#screenshots)
-- [Project Layout](#project-layout)
-- [Quick Start (Web)](#quick-start-web)
-- [Quick Start (Desktop)](#quick-start-desktop)
-- [Quality & Tooling](#quality--tooling)
-- [Lunch Money References](#lunch-money-references)
-- [Refreshing Documentation Screenshots](#refreshing-documentation-screenshots)
+- [Lunch To Go](#lunch-to-go)
+  - [Agentic Coding Project Experiment](#agentic-coding-project-experiment)
+  - [Contents](#contents)
+  - [Highlights](#highlights)
+  - [Screenshots](#screenshots)
+  - [Project Layout](#project-layout)
+  - [Quick Start (Web)](#quick-start-web)
+  - [Quick Start (Desktop)](#quick-start-desktop)
+  - [Quality \& Tooling](#quality--tooling)
+  - [Lunch Money References](#lunch-money-references)
+  - [Refreshing Documentation Screenshots](#refreshing-documentation-screenshots)
 
 ## Highlights
 
