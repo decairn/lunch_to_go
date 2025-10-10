@@ -18,6 +18,7 @@
     - List grouped sections: "Assets", "Liabilities", each subdivided by account type headings.
     - Rows render as single-line list items with subtle divider separators and hover/focus highlight (no card chrome per-row).
     - Rows include account icon, display name, days since update (e.g., "Updated 3 days ago"), monetary value aligned right.
+    - Days-since-update text becomes a link-style control that opens `https://my.lunchmoney.app/accounts` in a new browser tab (or system browser on desktop) whenever the value is greater than zero.
     - Institution name is surfaced via tooltip on the account name when available to preserve single-line layout.
     - Days-since-update text shifts to an amber tone when the account has been stale for more than seven days.
   - Net Worth Card: shows total assets, total liabilities, and net worth with icons and color cues (green positive, red negative).
@@ -125,6 +126,7 @@
     - List grouped sections: "Assets", "Liabilities", each subdivided by account type headings.
     - Rows render as single-line list items with divider separators and hover/focus highlight (no per-row cards).
     - Rows include account icon, display name, days since update (e.g., "Updated 3 days ago"), monetary value aligned right.
+    - When the days-since-update value exceeds zero, the label becomes a link-style button that opens `https://my.lunchmoney.app/accounts` in a new browser tab (or system browser for desktop).
     - Institution name appears via tooltip on the account name when available.
     - Days-since-update text shifts to an amber tone when the account has been stale for more than seven days.
   - Net Worth Card: shows total assets, total liabilities, and net worth with icons and color cues (green positive, red negative).

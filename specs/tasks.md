@@ -69,6 +69,7 @@
 | P3-12 | **Demo Data Feature**: Add "Show Demo Data" button for disconnected state that loads sample accounts from `app/src/data/demo_accounts_data.csv`, displays using same UI components, shows "Demo Data" badge, and calculates net worth | DONE   |
 | P3-13 | Introduce loading skeletons, empty states, and refresh invalidation                                                                                                                                                                   | TODO   |
 | P3-14 | Add tests (unit/component/e2e) validating sorting and currency toggle (completed), net worth tests (completed)                                                                                                                        | DONE   |
+| P3-15 | Make days-since-update label open Lunch Money Accounts externally when value > 0                                                                                                                                                      | DONE   |
 
 ## Phase 4 - Desktop Packaging & Secure Storage
 

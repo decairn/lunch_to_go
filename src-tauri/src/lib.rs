@@ -20,7 +20,8 @@ pub fn run() {
     .invoke_handler(tauri::generate_handler![
       commands::store_api_key,
       commands::read_api_key,
-      commands::delete_api_key
+      commands::delete_api_key,
+      commands::open_lunch_money_accounts
     ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");

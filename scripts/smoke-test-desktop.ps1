@@ -18,6 +18,23 @@ $Colors = @{
     Header = "Magenta"
 }
 
+function Get-AppVersion {
+    $packageJsonPath = Join-Path $PSScriptRoot "..\app\package.json"
+    if (-not (Test-Path $packageJsonPath)) {
+        throw "Unable to locate package.json at $packageJsonPath"
+    }
+
+    try {
+        $packageData = Get-Content $packageJsonPath -Raw | ConvertFrom-Json
+        if ([string]::IsNullOrWhiteSpace($packageData.version)) {
+            throw "Missing version field in package.json"
+        }
+        return $packageData.version
+    } catch {
+        throw "Failed to read app version: $($_.Exception.Message)"
+    }
+}
+
 function Write-TestResult {
     param([string]$Message, [string]$Status, [string]$Details = "")
     
@@ -38,14 +55,16 @@ function Write-TestResult {
 
 function Test-Prerequisites {
     Write-Host "`n=== Desktop Smoke Tests - Prerequisites ===" -ForegroundColor $Colors.Header
+
+    $version = Get-AppVersion()
     
     # Check if NSIS installer exists - prefer debug if available, fallback to release
-    $debugInstallerPath = "$PSScriptRoot\..\src-tauri\target\debug\bundle\nsis\Lunch To Go (Debug)_0.1.0_x64-setup.exe"
-    $releaseInstallerPath = "$PSScriptRoot\..\src-tauri\target\release\bundle\nsis\Lunch To Go_0.1.0_x64-setup.exe"
+    $debugInstallerPath = "$PSScriptRoot\..\src-tauri\target\debug\bundle\nsis\Lunch To Go (Debug)_${version}_x64-setup.exe"
+    $releaseInstallerPath = "$PSScriptRoot\..\src-tauri\target\release\bundle\nsis\Lunch To Go_${version}_x64-setup.exe"
     
     # Also check the dist directory
-    $debugDistPath = "$PSScriptRoot\..\dist\Lunch To Go (Debug)_0.1.0_x64-setup.exe"
-    $releaseDistPath = "$PSScriptRoot\..\dist\Lunch To Go_0.1.0_x64-setup.exe"
+    $debugDistPath = "$PSScriptRoot\..\dist\Lunch To Go (Debug)_${version}_x64-setup.exe"
+    $releaseDistPath = "$PSScriptRoot\..\dist\Lunch To Go_${version}_x64-setup.exe"
     
     $installerPath = $null
     $buildType = $null

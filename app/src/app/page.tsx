@@ -27,6 +27,9 @@ import { loadDemoAccountData, calculateDemoTotals, getDemoAccountsNormalized } f
 import { useAppStore } from "@/lib/state"
 import type { AccentColorPreference, AccountSortPreference, CurrencyDisplayMode, ThemePreference } from "@/lib/storage"
 import { logApiErrorEvent, logWarningEvent } from "@/lib/telemetry"
+import { openLunchMoneyAccountsPage } from "@/lib/platform/navigation"
+import { cn } from "@/lib/utils"
+import { ExternalLink } from "lucide-react"
 
 const themeLabels: Record<ThemePreference, string> = {
   system: "System",
@@ -854,6 +857,9 @@ export default function HomePage() {
                                   const isStale =
                                     typeof account.daysSinceUpdate === "number" &&
                                     account.daysSinceUpdate > 7
+                                  const isDaysClickable =
+                                    typeof account.daysSinceUpdate === "number" &&
+                                    account.daysSinceUpdate > 0
                                   const showConversionTooltip =
                                     preferences.currencyMode === "account" &&
                                     account.primaryCurrencyBalance !== 0 &&
@@ -889,9 +895,35 @@ export default function HomePage() {
                                           <span className="font-medium truncate">{account.name}</span>
                                         )}
                                         <div className="whitespace-nowrap text-xs sm:text-sm">
-                                          <span className={isStale ? "text-amber-700" : "text-muted-foreground"}>
-                                            {daysLabel}
-                                          </span>
+                                          {isDaysClickable ? (
+                                            <Button
+                                              type="button"
+                                              variant="link"
+                                              size="sm"
+                                              onClick={() => {
+                                                if (!isDaysClickable) return
+                                                void openLunchMoneyAccountsPage()
+                                              }}
+                                              className={cn(
+                                                "h-auto gap-1.5 px-0 py-0 text-xs sm:text-sm text-primary",
+                                                isStale &&
+                                                  "text-amber-800",
+                                              )}
+                                              aria-label={`Open Lunch Money accounts (last updated ${daysLabel.toLowerCase()})`}
+                                            >
+                                              {daysLabel}
+                                              <ExternalLink className="size-3" aria-hidden="true" />
+                                            </Button>
+                                          ) : (
+                                            <span
+                                              className={cn(
+                                                "text-primary",
+                                                isStale && "text-amber-800",
+                                              )}
+                                            >
+                                              {daysLabel}
+                                            </span>
+                                          )}
                                         </div>
                                       </div>
                                       <div className="flex items-center gap-1 text-right">

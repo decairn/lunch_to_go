@@ -208,3 +208,4 @@ Each phase may overlap, but dependencies listed per section must be satisfied be
 
 - 2025-10-08: Requirements updated to include accent color palette selection in Settings; P2-10 delivered with updated coverage row R-25.
 - 2025-10-09: Phase 6 updates-Windows NSIS packaging (P6-02), release notes (P6-03), and CI/CD run book (P6-05) shipped alongside refreshed smoke tests. P6-01 (web deployment guide), P6-04 (requirements doc finalization), and P6-06 (doc archiving) were deemed unnecessary and removed from scope.
+- 2025-10-10: Accounts UX refined so the days-since-update label opens Lunch Money Accounts in a new browser window when the value exceeds zero; coverage and requirements updated accordingly.

@@ -156,10 +156,28 @@ pub async fn delete_api_key(_cache: State<'_, SecureCache>) -> Result<(), String
             }
         }
     }
-    
+
     #[cfg(not(windows))]
     {
         log::warn!("Windows Credential Locker not available on this platform; skipping delete_api_key call");
         Err("Windows Credential Locker not available on this platform".to_string())
+    }
+}
+
+#[tauri::command]
+pub async fn open_lunch_money_accounts() -> Result<(), String> {
+    #[cfg(windows)]
+    {
+        log::info!("Opening Lunch Money accounts page in default browser");
+        webbrowser::open("https://my.lunchmoney.app/accounts").map_err(|error| {
+            let message = format!("Failed to open Lunch Money accounts page: {error}");
+            log::error!("{message}");
+            message
+        })
+    }
+
+    #[cfg(not(windows))]
+    {
+        Err("Opening external browser is not supported on this platform".to_string())
     }
 }

@@ -3,7 +3,7 @@
 ## 1. Project Goal
 
 - Provide a view of Accounts from Lunch Money personal finance software that lists in alphabetical order instead of Lunch Money's balance descending approach
-- Create a publically accesible GitHub repository to share the code to do this
+- Create a publicly accessible GitHub repository to share the code to do this
 
 ## 2. Target Solution Overview
 
@@ -61,9 +61,11 @@
   - Action button 'Refresh' - calls Lunch Money API using the API Key and get the Assets and Plaid Accounts objects
   - Sort option selectable - sort accounts list by alphanumeric ascending or account balance descending (using Primary Currency), default alphanumeric ascending, persist choice across restarts
   - Currency option selectable - display balances using Primary Currency of user, or in Account Currency, default Primary Currency, persist choice across restarts
-  - List of Accounts - Account Display Name, Days Since Update, Balance one per row.
+- List of Accounts - Account Display Name, Days Since Update, Balance one per row.
+- When "Days Since Update" is greater than 0, clicking the text opens Lunch Money Accounts (`https://my.lunchmoney.app/accounts`) in a new tab/window.
   - List is stacked and grouped by Assets then Liabilities, then by Account Type. Both always sorted alphanumeric ascending.
   - Sort order of list follows sort option
+  - If Days Since Update is more than zero days provide a clickable link to open up Lunch Money app accounts page in a browser so so they can attempt to resolve it
   - Balance amount follows currency option, display follows currency locale rules, if currency option is Account Currency then show icon to left of balance with hoverover text of the format 'Converted to [Primary Currency]$25.11 at [Account Currency]US$1.00 = [Primary Currency]$[Primary Currency Balance / Account Currency Balance]1.3919' and show the account balance in account currency
   - Do not display accounts in closed status
   - Iconography required for Asset, Liability, each Account Type title lines
