@@ -13,7 +13,7 @@ _Review Date: 2025-10-09_
 
 - Layout injects a CSP meta tag that allows:
   - `default-src 'self'`
-  - `script-src 'self' 'unsafe-inline' 'unsafe-eval'` (Retained while Next.js 15 and Shadcn UI rely on inline hydration helpers)
+  - `script-src 'self' 'unsafe-inline' 'unsafe-eval'` (Retained while Next.js 16 (beta) and Shadcn UI rely on inline hydration helpers)
   - `connect-src 'self' https://api.lunchmoney.app`
   - `img-src 'self' data:`
   - `style-src 'self' 'unsafe-inline'`

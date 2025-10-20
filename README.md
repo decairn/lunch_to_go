@@ -26,7 +26,7 @@ This is the second attempt.  The first used Dart and Flutter, while that worked 
 
 ## Highlights
 
-- Dual-target delivery: browser build (Next.js 15 / React 19) and Windows desktop app (Tauri 2 + WebView2).
+- Dual-target delivery: browser build (Next.js 16 (beta) / React 19) and Windows desktop app (Tauri 2 + WebView2).
 - Fully typed data client with TanStack Query caching, Zustand preference hydration, and secure key storage adapters.
 - Demo data mode for showcasing features without a Lunch Money API token.
 - Accessibility-first UI using Shadcn primitives, Tailwind tokens, and automated axe/Playwright coverage.

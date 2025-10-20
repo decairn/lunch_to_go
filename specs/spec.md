@@ -23,7 +23,7 @@
     - Days-since-update text shifts to an amber tone when the account has been stale for more than seven days.
   - Net Worth Card: shows total assets, total liabilities, and net worth with icons and color cues (green positive, red negative).
   - Loading states: skeleton rows until first data load; empty-state messaging if no accounts.
-- **Deployment Targets**: Responsive web app served by Next.js 15 and a Windows NSIS desktop application packaged with Tauri (WebView2 host + Rust command layer).
+- **Deployment Targets**: Responsive web app served by Next.js 16 (beta) and a Windows NSIS desktop application packaged with Tauri (WebView2 host + Rust command layer).
 - **Reference Documentation**: Lunch Money API documentation at <https://lunchmoney.dev/>.
 
 ## 2. Personas & Use Cases
@@ -54,7 +54,7 @@
 
 ## 5. System Architecture
 
-- **Frontend Stack**: Next.js 15 (App Router) with TypeScript, Tailwind CSS, Shadcn UI components.
+- **Frontend Stack**: Next.js 16 (beta, App Router) with TypeScript, Tailwind CSS, Shadcn UI components.
 - **State & Data**:
   - TanStack Query for API data fetching, caching, invalidation, and retry policies.
   - Zustand (or React Context) for persisted UI preferences and connection status.
@@ -97,7 +97,7 @@
 - **Proxy & Transport**:
 - **Web Platform**: The shared API client issues HTTPS requests directly to `https://api.lunchmoney.app/v1`, attaching the stored user API key and retrying with TanStack Query policies.
 - **Desktop Platform**: Uses the same API client, sourcing the API key from the Windows Credential Locker adapter exposed by the Tauri command layer.
-- Next.js 15 App Router components run entirely on the client for authenticated data flows; server actions focus on preference hydration and leave Lunch Money traffic to the shared fetch client.
+- Next.js 16 App Router components run entirely on the client for authenticated data flows; server actions focus on preference hydration and leave Lunch Money traffic to the shared fetch client.
   - API client adapts to platform context using base URL detection and relative path tolerance.
   - Both platforms forward rate-limit headers and maintain consistent error taxonomy payloads.
 - **Caching & Refresh**:

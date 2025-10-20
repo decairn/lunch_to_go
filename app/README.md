@@ -2,7 +2,7 @@
 
 > Refer to the workspace-level `../README.md` for end-to-end install, screenshots, and release guidance.
 
-Lunch To Go is a Next.js 15 application that surfaces Lunch Money accounts in alphabetical order and ships alongside a companion Windows desktop build.
+Lunch To Go is a Next.js 16 (beta) application that surfaces Lunch Money accounts in alphabetical order and ships alongside a companion Windows desktop build.
 
 ## Prerequisites
 

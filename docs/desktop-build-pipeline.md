@@ -8,7 +8,7 @@ desktop bundles in lockstep and is driven entirely from PowerShell so that it
 meets the tooling and manual-CICD requirements captured in
 `docs/Lunch_To_Go_Requirements.md`.
 
-- Frontend source: `app/` (Next.js 15, Tailwind CSS, Shadcn UI)
+- Frontend source: `app/` (Next.js 16 (beta), Tailwind CSS, Shadcn UI)
 - Desktop shell: `src-tauri/` (Tauri 2.x, Rust 1.81+)
 - Primary entry script: `scripts/package-desktop.ps1`
 - Output installers: `src-tauri/target/{debug,release}/bundle/nsis/*.exe` and

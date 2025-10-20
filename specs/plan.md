@@ -3,7 +3,7 @@
 ## 1. Planning Assumptions
 
 - Scope, architecture, and data integrations defined in `specs/spec.md`.
-- Toolchain: Node 20+, pnpm, Next.js 15, TypeScript, Tailwind, Shadcn UI, TanStack Query, Zustand, Vitest, Playwright, Tauri 2.x with Rust 1.81+.
+- Toolchain: Node 20+, pnpm, Next.js 16 (beta), TypeScript, Tailwind, Shadcn UI, TanStack Query, Zustand, Vitest, Playwright, Tauri 2.x with Rust 1.81+.
 - Target platforms: Web (Next.js) and Windows desktop (Tauri + WebView2) delivering the same feature set.
 - Documentation set: `docs/` for requirements, `specs/` for spec/plan/tasks/coverage, scripts for manual CICD.
 
@@ -197,7 +197,7 @@ Each phase may overlap, but dependencies listed per section must be satisfied be
 
 - 2025-10-02: Phase 2 automated coverage added - shared API client, store, and settings components tested under Vitest.
 
-- 2025-10-02: Shared API client hardened for Next.js 15 async data fetching and relative URL handling (Claude assistance).
+- 2025-10-02: Shared API client hardened for Next.js 16 async data fetching and relative URL handling (Claude assistance).
 
 - 2025-10-02: Phase 3 core accounts functionality delivered — P3-01 through P3-05 complete with sorting controls, currency toggle, conversion tooltips, grouping, and guarded access. Comprehensive test coverage added including sorting-integration.test.ts, currency-conversion.test.ts, currency-fields.test.ts, and currency-regression.test.ts. Currency normalization logic simplified from complex USD/CAD inference to direct API field usage per official Lunch Money specification.
 
