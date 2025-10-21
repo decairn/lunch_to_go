@@ -19,6 +19,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { AccountsContentSkeleton, NetWorthContentSkeleton } from "@/components/loading-skeletons"
 import { NoAccountsEmptyState } from "@/components/empty-states"
+import { formatCurrency, titleCaseName, formatConversionTooltip } from "@/lib/utils"
 import { useAppHydration } from "@/hooks/use-app-hydration"
 import { createApiClient, fetchMe, fetchAssets, fetchPlaidAccounts, getApiBaseUrl } from "@/lib/api"
 import { ApiError, describeApiError, toApiError } from "@/lib/api/errors"
@@ -59,61 +60,7 @@ const accentSwatches: Record<AccentColorPreference, string> = {
   yellow: "#eab308",
 }
 
-function formatCurrency(value: number, currency: string, primaryCurrency: string = "USD") {
-  // Use locale that matches the primary currency to make it the 'home' currency
-  // CAD primary users get en-CA locale ($ for CAD, US$ for USD)
-  // USD primary users get en-US locale ($ for USD, CA$ for CAD)
-  const locale = primaryCurrency.toUpperCase() === "CAD" ? "en-CA" : "en-US"
-  
-  return new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency,
-    maximumFractionDigits: 2,
-  }).format(value)
-}
 
-function formatCurrencyPrecise(value: number, currency: string, primaryCurrency: string = "USD") {
-  // Use locale that matches the primary currency to make it the 'home' currency
-  // CAD primary users get en-CA locale ($ for CAD, US$ for USD)
-  // USD primary users get en-US locale ($ for USD, CA$ for CAD)
-  const locale = primaryCurrency.toUpperCase() === "CAD" ? "en-CA" : "en-US"
-  
-  return new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency,
-    minimumFractionDigits: 4,
-    maximumFractionDigits: 4,
-  }).format(value)
-}
-
-function titleCaseName(name: string) {
-  return name
-    .trim()
-    .split(/\s+/)
-    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1).toLowerCase())
-    .join(" ")
-}
-
-function formatConversionTooltip(
-  primaryCurrencyBalance: number,
-  primaryCurrencyCode: string,
-  accountCurrencyBalance: number,
-  accountCurrencyCode: string
-): string {
-  // Calculate exchange rate: to_base / balance (primary currency amount / account currency amount)
-  // This gives us how many primary currency units per 1 account currency unit
-  const exchangeRate = accountCurrencyBalance !== 0 
-    ? (primaryCurrencyBalance / accountCurrencyBalance)
-    : 1
-  
-  // Format amounts with 2 decimal places, but exchange rate with 4 decimal places for precision
-  // Use primaryCurrencyCode as the 'home' currency for formatting
-  const convertedAmount = formatCurrency(primaryCurrencyBalance, primaryCurrencyCode, primaryCurrencyCode)
-  const oneAccountUnit = formatCurrency(1, accountCurrencyCode, primaryCurrencyCode)
-  const exchangeRatePrecise = formatCurrencyPrecise(exchangeRate, primaryCurrencyCode, primaryCurrencyCode)
-  
-  return `Converted to ${convertedAmount} at ${oneAccountUnit} = ${exchangeRatePrecise}`
-}
 
 // Simple conversion icon component
 function ConversionIcon({ className, title }: { className?: string; title?: string }) {
