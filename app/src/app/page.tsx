@@ -110,10 +110,13 @@ export default function HomePage() {
 
   const [apiKeyInput, setApiKeyInput] = useState("")
   const [localError, setLocalError] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState("settings")
+  const [activeTab, setActiveTab] = useState(() =>
+    preferences.verificationStatus === "verified" ? "accounts" : "settings",
+  )
 
   const loadStartMarkedRef = useRef(false)
   const loadMeasuredRef = useRef(false)
+  const demoModeSanitizedRef = useRef(false)
 
   const prepareLoadMeasurement = useCallback(() => {
     if (typeof performance === "undefined") {
@@ -172,12 +175,6 @@ export default function HomePage() {
     await queryClient.invalidateQueries({ queryKey: ["user"] })
     await queryClient.invalidateQueries({ queryKey: ["accounts"] })
   }
-
-  useEffect(() => {
-    if (localError && apiKeyInput.trim().length) {
-      setLocalError(null)
-    }
-  }, [apiKeyInput, localError])
 
   useEffect(() => {
     if (hydrated) {
@@ -355,7 +352,14 @@ export default function HomePage() {
     enabled: hydrated && preferences.demoMode,
     queryFn: async () => {
       const primaryCurrency = preferences.profile?.primaryCurrency ?? "CAD"
-      return await loadDemoAccountData(primaryCurrency, preferences.accountSort)
+      const [groups, normalizedAccounts] = await Promise.all([
+        loadDemoAccountData(primaryCurrency, preferences.accountSort),
+        getDemoAccountsNormalized(primaryCurrency),
+      ])
+      return {
+        groups,
+        totals: calculateDemoTotals(normalizedAccounts),
+      }
     },
     staleTime: 30 * 60 * 1000, // 30 minutes (demo data doesn't change often)
   })
@@ -367,7 +371,7 @@ export default function HomePage() {
   }, [demoQuery.error, preferences.demoMode, emitApiError])
 
   // Combined query data - use demo data when in demo mode, otherwise use live data
-  const currentAccountsData = preferences.demoMode ? demoQuery.data : accountsQuery.data
+  const currentAccountsData = preferences.demoMode ? demoQuery.data?.groups : accountsQuery.data
   const currentAccountsLoading = preferences.demoMode ? demoQuery.isLoading : accountsQuery.isLoading
   const currentAccountsError = preferences.demoMode ? demoQuery.error : accountsQuery.error
   const currentAccountsRefetch = preferences.demoMode ? demoQuery.refetch : accountsQuery.refetch
@@ -397,26 +401,22 @@ export default function HomePage() {
     )
   }, [currentAccountsData])
 
-  // Handle demo data totals separately since they need to be async
-  const [demoTotals, setDemoTotals] = useState<{ assets: number; liabilities: number; net: number } | null>(null)
-  
-  useEffect(() => {
-    if (preferences.demoMode && hydrated) {
-      getDemoAccountsNormalized(preferences.profile?.primaryCurrency ?? "CAD")
-        .then(accounts => {
-          const totals = calculateDemoTotals(accounts)
-          setDemoTotals(totals)
-        })
-        .catch(() => setDemoTotals({ assets: 0, liabilities: 0, net: 0 }))
-    } else {
-      setDemoTotals(null)
-    }
-  }, [preferences.demoMode, preferences.profile?.primaryCurrency, hydrated])
-
   // Use demo totals when in demo mode, otherwise use live totals
-  const finalTotals = preferences.demoMode ? (demoTotals ?? { assets: 0, liabilities: 0, net: 0 }) : totals
- 
+  const finalTotals = preferences.demoMode ? (demoQuery.data?.totals ?? { assets: 0, liabilities: 0, net: 0 }) : totals
+
   const showAccounts = hydrated && (preferences.verificationStatus === "verified" || preferences.demoMode)
+
+  useEffect(() => {
+    if (!hydrated || demoModeSanitizedRef.current) {
+      return
+    }
+
+    demoModeSanitizedRef.current = true
+
+    if (preferences.verificationStatus !== "verified" && preferences.demoMode) {
+      void actions.setDemoMode(false)
+    }
+  }, [hydrated, preferences.verificationStatus, preferences.demoMode, actions])
 
   useEffect(() => {
     if (showAccounts) {
@@ -425,17 +425,31 @@ export default function HomePage() {
   }, [showAccounts, markLoadStart])
 
   // Set initial tab based on verification status
+  const previousVerificationStatusRef = useRef(preferences.verificationStatus)
+
   useEffect(() => {
-    if (hydrated) {
-      if (preferences.verificationStatus === "verified") {
-        // Switch to accounts tab when verified
-        setActiveTab("accounts")
-      } else {
-        // Stay on settings tab when not verified
-        setActiveTab("settings")
-      }
+    const previousStatus = previousVerificationStatusRef.current
+    const currentStatus = preferences.verificationStatus
+
+    if (previousStatus === currentStatus) {
+      return
     }
-  }, [hydrated, preferences.verificationStatus])
+
+    previousVerificationStatusRef.current = currentStatus
+
+    if (previousStatus !== "verified" && currentStatus === "verified") {
+      queueMicrotask(() => {
+        setActiveTab("accounts")
+      })
+      return
+    }
+
+    if (previousStatus === "verified" && currentStatus !== "verified") {
+      queueMicrotask(() => {
+        setActiveTab("settings")
+      })
+    }
+  }, [preferences.verificationStatus])
 
   useEffect(() => {
     if (hydrated && preferences.verificationStatus === "verified") {
@@ -522,10 +536,11 @@ export default function HomePage() {
                       id="api-key-input"
                       value={apiKeyInput}
                       onChange={(event) => {
-                        if (localError) {
+                        const nextValue = event.target.value
+                        if (localError && nextValue.trim().length) {
                           setLocalError(null)
                         }
-                        setApiKeyInput(event.target.value)
+                        setApiKeyInput(nextValue)
                       }}
                       placeholder="lunch_money_subscriber_key"
                       aria-describedby={localError ? "api-key-error" : undefined}
@@ -735,9 +750,9 @@ export default function HomePage() {
                         </SelectContent>
                       </Select>
                       <Button
-                        variant="outline"
+                        variant="default"
                         size="sm"
-                        className="border-primary/60 text-foreground hover:bg-accent/40 hover:text-foreground dark:text-foreground"
+                        className="bg-primary text-primary-foreground hover:bg-primary/90"
                         onClick={handleRefresh}
                         disabled={currentAccountsLoading}
                       >
@@ -754,10 +769,10 @@ export default function HomePage() {
                         <p className="text-sm text-muted-foreground mt-1">
                           {currentAccountsError instanceof Error ? currentAccountsError.message : "Unknown error occurred"}
                         </p>
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="mt-3 border-primary/60 text-foreground hover:bg-accent/40 hover:text-foreground dark:text-foreground"
+                        <Button
+                          variant="default"
+                          size="sm"
+                          className="mt-3 bg-primary text-primary-foreground hover:bg-primary/90"
                           onClick={() => currentAccountsRefetch()}
                           disabled={currentAccountsLoading}
                         >
@@ -922,7 +937,7 @@ export default function HomePage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="grid gap-4 sm:grid-cols-3">
-                    {currentAccountsLoading || (preferences.demoMode && !demoTotals) ? (
+                    {currentAccountsLoading || (preferences.demoMode && !demoQuery.data?.totals) ? (
                       <NetWorthContentSkeleton />
                     ) : (
                       <>
