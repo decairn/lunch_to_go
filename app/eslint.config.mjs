@@ -1,26 +1,55 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import { createRequire } from "node:module";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const require = createRequire(import.meta.url);
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+const nextConfigs = require("eslint-config-next");
+const prettierConfig = require("eslint-config-prettier/flat");
+
+const [nextBase, nextTypescript, nextIgnores] = nextConfigs;
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
   {
+    ...nextBase,
+    plugins: { ...nextBase.plugins },
+    languageOptions: {
+      ...nextBase.languageOptions,
+      parserOptions: {
+        ...(nextBase.languageOptions?.parserOptions ?? {}),
+      },
+      globals: {
+        ...(nextBase.languageOptions?.globals ?? {}),
+      },
+    },
+    settings: {
+      ...(nextBase.settings ?? {}),
+    },
+    rules: {
+      ...(nextBase.rules ?? {}),
+    },
+  },
+  {
+    ...nextTypescript,
+    plugins: {
+      ...(nextTypescript.plugins ?? {}),
+    },
+    languageOptions: {
+      ...nextTypescript.languageOptions,
+      parserOptions: {
+        ...(nextTypescript.languageOptions?.parserOptions ?? {}),
+      },
+    },
+  },
+  {
+    ...nextIgnores,
     ignores: [
+      ...(nextIgnores.ignores ?? []),
       "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
       "coverage/**",
+      "playwright-report/**",
+      "test-results/**",
     ],
   },
+  prettierConfig,
 ];
 
 export default eslintConfig;
