@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { NetworkError } from "@/lib/api/errors"
 import { logTelemetryEvent, logApiErrorEvent } from "../logger"
+import { LUNCHMONEY_API_BASE_URL } from "@/lib/api/constants"
 
 describe("logTelemetryEvent", () => {
   it("redacts sensitive keys and returns payload metadata", () => {
@@ -31,7 +32,7 @@ describe("logApiErrorEvent", () => {
 
     const payload = logApiErrorEvent(error, {
       action: "accounts.fetch",
-      requestUrl: "https://api.lunchmoney.app/v1/assets",
+      requestUrl: `${LUNCHMONEY_API_BASE_URL}/assets`,
       retryCount: 1,
     })
 
@@ -40,7 +41,7 @@ describe("logApiErrorEvent", () => {
     expect(payload.errorCode).toBe("network")
     expect(payload.level).toBe("error")
     expect(payload.context).toMatchObject({
-      requestUrl: "https://api.lunchmoney.app/v1/assets",
+      requestUrl: `${LUNCHMONEY_API_BASE_URL}/assets`,
       retryCount: 1,
       status: undefined,
     })

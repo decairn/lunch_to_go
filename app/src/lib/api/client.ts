@@ -1,7 +1,6 @@
 import { logApiErrorEvent } from "@/lib/telemetry"
 import { createAuthenticationError, createHttpError, createParseError, toApiError } from "./errors"
-
-const DEFAULT_BASE_URL = "https://api.lunchmoney.app/v1"
+import { LUNCHMONEY_API_BASE_URL } from "./constants"
 
 type FetchLike = typeof fetch
 
@@ -93,7 +92,7 @@ async function serializeBody(body: unknown): Promise<BodyInit | undefined> {
 }
 
 export function createApiClient(config: ApiClientConfig = {}): ApiClient {
-  const baseUrl = config.baseUrl ?? DEFAULT_BASE_URL
+  const baseUrl = config.baseUrl ?? LUNCHMONEY_API_BASE_URL
   const fetchImpl = config.fetchFn ?? fetch
   const getAccessToken = config.getAccessToken
 

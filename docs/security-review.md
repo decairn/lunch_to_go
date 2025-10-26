@@ -5,7 +5,7 @@ _Review Date: 2025-10-09_
 ## Scope
 
 - Runtime Content Security Policy and referrer policy applied by `app/src/app/layout.tsx`
-- HTTPS access to Lunch Money production endpoints (`https://api.lunchmoney.app/v1`)
+- HTTPS access to Lunch Money production endpoints (`https://dev.lunchmoney.app/v1`)
 - Credential handling across the web build (IndexedDB + WebCrypto) and Windows desktop build (Windows Credential Locker via Tauri)
 - Outstanding risks and follow-up actions aligned with documented requirements
 
@@ -14,14 +14,14 @@ _Review Date: 2025-10-09_
 - Layout injects a CSP meta tag that allows:
   - `default-src 'self'`
   - `script-src 'self' 'unsafe-inline' 'unsafe-eval'` (Retained while Next.js 16 (beta) and Shadcn UI rely on inline hydration helpers)
-  - `connect-src 'self' https://api.lunchmoney.app`
+  - `connect-src 'self' https://dev.lunchmoney.app`
   - `img-src 'self' data:`
   - `style-src 'self' 'unsafe-inline'`
   - `font-src 'self' https://fonts.gstatic.com`
   - `frame-ancestors 'none'`, `base-uri 'self'`, `form-action 'self'`
 - Referrer policy is pinned to `strict-origin-when-cross-origin`.
 - All API calls use HTTPS and originate from the shared API client whose default
-  base URL is `https://api.lunchmoney.app/v1`. The desktop smoke tests confirm
+  base URL is `https://dev.lunchmoney.app/v1`. The desktop smoke tests confirm
   connectivity against the same base URL.
 
 ## Credential handling

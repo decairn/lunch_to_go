@@ -56,7 +56,7 @@ Each phase may overlap, but dependencies listed per section must be satisfied be
   - Introduce Zustand store (or Context) to hold connection status, user profile, sort/currency/theme preferences with hydration.
   - Implement initial app routing logic: present Settings tab when API key is disconnected, present Accounts tab when API key is connected.
   - Stub secure storage commands on the Tauri side (`src-tauri/src/commands.rs`) returning dummy values until implemented in Phase 4.
-  - Finalize shared API platform helpers (desktop + web) that point directly at `https://api.lunchmoney.app/v1` while injecting the stored API key.
+  - Finalize shared API platform helpers (desktop + web) that point directly at `https://dev.lunchmoney.app/v1` while injecting the stored API key.
   - Harden fetch utilities for browser and desktop contexts, including retry helpers and relative URL handling.
 - **Exit Criteria**:
   - Unit tests cover API client error mapping and domain normalization.

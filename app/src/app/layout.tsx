@@ -5,6 +5,7 @@ import { ReactQueryProvider } from "@/providers/react-query-provider"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AccentSync } from "@/components/accent-sync"
 import { Toaster } from "@/components/ui/sonner"
+import { LUNCHMONEY_API_BASE_URL } from "@/lib/api/constants"
 import "./globals.css"
 
 const geistSans = Geist({
@@ -16,6 +17,8 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 })
+
+const LUNCHMONEY_API_ORIGIN = new URL(LUNCHMONEY_API_BASE_URL).origin
 
 export const metadata: Metadata = {
   title: "Lunch To Go",
@@ -41,7 +44,7 @@ export default function RootLayout({
           content={[
             "default-src 'self'",
             "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-            "connect-src 'self' https://api.lunchmoney.app",
+            `connect-src 'self' ${LUNCHMONEY_API_ORIGIN}`,
             "img-src 'self' data:",
             "style-src 'self' 'unsafe-inline'",
             "font-src 'self' https://fonts.gstatic.com",

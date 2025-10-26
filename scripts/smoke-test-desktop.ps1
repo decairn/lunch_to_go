@@ -249,7 +249,7 @@ function Test-ApiConnectivity {
             "Accept" = "application/json"
         }
         
-        $response = Invoke-RestMethod -Uri "https://api.lunchmoney.app/v1/me" -Headers $headers -Method GET -TimeoutSec 10
+        $response = Invoke-RestMethod -Uri "https://dev.lunchmoney.app/v1/me" -Headers $headers -Method GET -TimeoutSec 10
         
         if ($response -and $response.name) {
             Write-TestResult "API connectivity successful" "PASS" "User: $($response.name)"
@@ -284,7 +284,7 @@ function Test-AccountsData {
         
         # Test assets endpoint
         Write-TestResult "Testing assets endpoint" "INFO" "/v1/assets"
-        $assetsResponse = Invoke-RestMethod -Uri "https://api.lunchmoney.app/v1/assets" -Headers $headers -Method GET -TimeoutSec 10
+        $assetsResponse = Invoke-RestMethod -Uri "https://dev.lunchmoney.app/v1/assets" -Headers $headers -Method GET -TimeoutSec 10
         
         if ($assetsResponse -and $assetsResponse.assets) {
             $assetCount = $assetsResponse.assets.Count
@@ -301,7 +301,7 @@ function Test-AccountsData {
         # Test Plaid accounts endpoint
         Write-TestResult "Testing Plaid accounts endpoint" "INFO" "/v1/plaid_accounts"
         try {
-            $plaidResponse = Invoke-RestMethod -Uri "https://api.lunchmoney.app/v1/plaid_accounts" -Headers $headers -Method GET -TimeoutSec 10
+            $plaidResponse = Invoke-RestMethod -Uri "https://dev.lunchmoney.app/v1/plaid_accounts" -Headers $headers -Method GET -TimeoutSec 10
             
             if ($plaidResponse -and $plaidResponse.plaid_accounts) {
                 $plaidCount = $plaidResponse.plaid_accounts.Count

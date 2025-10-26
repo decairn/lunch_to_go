@@ -25,7 +25,7 @@ optionally validates Lunch Money connectivity with a provided API key.
      available for the Tauri bridge.
 5. **API validation (optional)**
    - When `-TestApiKey` is provided, issues authenticated requests to
-     `https://api.lunchmoney.app/v1/me`, `/v1/assets`, and `/v1/plaid_accounts`.
+     `https://dev.lunchmoney.app/v1/me`, `/v1/assets`, and `/v1/plaid_accounts`.
    - Verifies filtering that excludes closed accounts and logs basic counts to
      match the normalization logic used in the app.
 6. **Cleanup**

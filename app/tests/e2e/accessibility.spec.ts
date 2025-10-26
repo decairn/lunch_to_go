@@ -35,7 +35,7 @@ test.describe("Accessibility & Keyboard Support", () => {
     await page.goto("/")
 
     const settingsTab = page.getByRole("tab", { name: "Settings" })
-    await page.keyboard.press("Tab")
+    await focusElement(page, settingsTab)
     await expect(settingsTab).toBeFocused()
 
     const accountsTab = page.getByRole("tab", { name: "Accounts" })

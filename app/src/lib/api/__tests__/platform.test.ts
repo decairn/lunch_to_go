@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest"
 import { isDesktopApp, getApiBaseUrl } from "../platform"
+import { LUNCHMONEY_API_BASE_URL } from "../constants"
 
 describe("Platform Detection", () => {
   beforeEach(() => {
@@ -33,17 +34,17 @@ describe("Platform Detection", () => {
     it("should return direct API URL for both web and desktop (simplified approach)", () => {
       // Web environment (no __TAURI__)
       ;(global as unknown as { window: unknown }).window = {}
-      expect(getApiBaseUrl()).toBe("https://api.lunchmoney.app/v1")
+      expect(getApiBaseUrl()).toBe(LUNCHMONEY_API_BASE_URL)
       
       // Desktop environment (with __TAURI__)
       ;(global as unknown as { window: { __TAURI__: unknown } }).window = {
         __TAURI__: {},
       }
-      expect(getApiBaseUrl()).toBe("https://api.lunchmoney.app/v1")
+      expect(getApiBaseUrl()).toBe(LUNCHMONEY_API_BASE_URL)
       
       // No window (SSR environment)
       delete (global as unknown as { window: unknown }).window
-      expect(getApiBaseUrl()).toBe("https://api.lunchmoney.app/v1")
+      expect(getApiBaseUrl()).toBe(LUNCHMONEY_API_BASE_URL)
     })
   })
 })

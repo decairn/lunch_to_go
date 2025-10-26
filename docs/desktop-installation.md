@@ -10,7 +10,7 @@ automation.
 - **OS**: Windows 10 (1903+) or Windows 11, 64-bit
 - **CPU/RAM**: Dual-core processor with 4 GB RAM (8 GB recommended)
 - **Disk**: ~100 MB free for the app plus WebView2 runtime (downloads on demand)
-- **Network**: HTTPS access to `https://api.lunchmoney.app`
+- **Network**: HTTPS access to `https://dev.lunchmoney.app`
 - **WebView2**: Installed automatically if missing (Tauri bootstrapper handles
   download)
 

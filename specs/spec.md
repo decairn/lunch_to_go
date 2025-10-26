@@ -95,7 +95,7 @@
   - Locale selection: Use en-CA locale for CAD primary currency users, en-US locale for USD primary currency users.
   - No external FX rate source needed.
 - **Proxy & Transport**:
-- **Web Platform**: The shared API client issues HTTPS requests directly to `https://api.lunchmoney.app/v1`, attaching the stored user API key and retrying with TanStack Query policies.
+- **Web Platform**: The shared API client issues HTTPS requests directly to `https://dev.lunchmoney.app/v1`, attaching the stored user API key and retrying with TanStack Query policies.
 - **Desktop Platform**: Uses the same API client, sourcing the API key from the Windows Credential Locker adapter exposed by the Tauri command layer.
 - Next.js 16 App Router components run entirely on the client for authenticated data flows; server actions focus on preference hydration and leave Lunch Money traffic to the shared fetch client.
   - API client adapts to platform context using base URL detection and relative path tolerance.
@@ -150,7 +150,7 @@
 - Windows credential storage uses OS-protected secrets; Rust commands sanitize logs.
 - Clipboard paste is allowed, but deleting the key must wipe all stored credential data immediately.
 - Cross-origin requests limited to Lunch Money API endpoint; Content Security Policy tightened in Next.js headers.
-- Shared API utilities always call `https://api.lunchmoney.app/v1` with the stored API key; no server-side proxy is required at the moment.
+- Shared API utilities always call `https://dev.lunchmoney.app/v1` with the stored API key; no server-side proxy is required at the moment.
 
 ## 10. Performance & Reliability Requirements
 
